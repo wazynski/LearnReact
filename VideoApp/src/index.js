@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
@@ -6,6 +7,9 @@ import VideoList from './components/video_list';
 import VideoDetail from './components/video_detail';
 
 // Downwards data flow. The most parent component should be resposible for fetching data.
+
+// THIS IS RESTRICTED TO IP!!!!!
+// Change at https://console.developers.google.com/apis/
 const API_KEY = 'AIzaSyBDLui5HjS-REv6U2ovpk8SWy7czeKUY6Y';
 
 // const is ES6 is simlar to var but it will never chnage it is a constant
@@ -17,19 +21,32 @@ class App extends Component {
     super(props);
 
     this.state = {
-      videos: []
+      videos: [],
+      selectedVideo: null
     };
 
-    YTSearch({key :API_KEY, term: 'surfboards'}, (videos) => {
-      this.setState({ videos });
+    this.videoSearch('surfboards');
+  }
+
+  videoSearch(term) {
+    YTSearch({key :API_KEY, term: term}, (videos) => {
+      this.setState({
+        videos: videos,
+        selectedVideo: videos[0]
+      });
     });
   }
+
   render() {
+    const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 500);
+
     return (
       <div>
-        <SearchBar />
-        <VideoDetail video={this.state.videos[0]} />
-        <VideoList videos={this.state.videos} />
+        <SearchBar onSearchTermChange={videoSearch}/>
+        <VideoDetail video={this.state.selectedVideo} />
+        <VideoList
+          onVideoSelect={ selectedVideo => this.setState({selectedVideo}) }
+          videos={this.state.videos} />
       </div>
     )
   }
