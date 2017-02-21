@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions/index';
 import { Link } from 'react-router';
+import { fetchPosts } from '../actions/index';
 
 class PostsIndex extends Component {
   componentWillMount() {
@@ -10,9 +10,9 @@ class PostsIndex extends Component {
 
   renderPosts() {
     return this.props.posts.map((post) => {
-      return(
+      return (
         <li className="list-group-item" key={post.id}>
-          <Link to={"posts/" + post.id}>
+          <Link to={`posts/${post.id}`}>
             <span className="pull-xs-right">{post.categories}</span>
             <strong>{post.title}</strong>
           </Link>
@@ -36,12 +36,12 @@ class PostsIndex extends Component {
         </ul>
 
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps(state) {
-  return  { posts: state.posts.all }
+  return {posts: state.posts.all}
 }
 
 

@@ -14,17 +14,17 @@ export function fetchPosts() {
 
   return {
     type: FETCH_POSTS,
-    payload: request
+    payload: request,
   };
 }
 
 export function createPost(props) {
-  const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, props)
+  const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, props);
 
   return {
     type: CREATE_POST,
-    payload: request
-  }
+    payload: request,
+  };
 }
 
 export function fetchPost(id) {
@@ -32,7 +32,7 @@ export function fetchPost(id) {
 
   return {
     type: FETCH_POST,
-    payload: request
+    payload: request,
   };
 }
 
@@ -41,6 +41,6 @@ export function deletePost(id) {
 
   return {
     type: DELETE_POST,
-    payload: request
+    payload: request,
   };
 }

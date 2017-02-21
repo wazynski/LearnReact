@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 
-export default class App extends Component {
+class App extends Component {
   render() {
+    if (!this.props.children) {
+      return null;
+    }
+
     return (
       <div>
         {this.props.children}
@@ -9,3 +13,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default App;

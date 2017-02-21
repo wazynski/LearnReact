@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { createPost } from '../actions/index';
 import { Link } from 'react-router';
+import { createPost } from '../actions/index';
 
 class PostsNew extends Component {
   static contextTypes = {
-    router: PropTypes.object
+    router: PropTypes.object,
   };
 
   onSubmit(props) {
@@ -14,7 +14,7 @@ class PostsNew extends Component {
       .then(() => {
         // Blog post has been created navigate to the IndexRoute
         // We navigate by calling this.context.router.push with the
-        //new path to navigate to.
+        // new path to navigate to.
         this.context.router.push('/');
       });
   }
@@ -22,31 +22,31 @@ class PostsNew extends Component {
   render() {
     const { fields: { title, categories, content }, handleSubmit } = this.props;
 
-    return(
+    return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <h3>Create a New Post</h3>
 
         <div className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
-          <label>Title</label>
-          <input type="text" className="form-control" {...title} />
+          <label htmlFor="title">Title</label>
+          <input id="title" type="text" className="form-control" {...title} />
           <div className="text-help">
-            { title.touched ? title.error : "" }
+            { title.touched ? title.error : '' }
           </div>
         </div>
 
         <div className={`form-group ${categories.touched && categories.invalid ? 'has-danger' : ''}`}>
-          <label>Categories</label>
-          <input type="text" className="form-control" {...categories} />
+          <label htmlFor="categoires">Categories</label>
+          <input id="categoires" type="text" className="form-control" {...categories} />
           <div className="text-help">
-            { categories.touched ? categories.error : "" }
+            { categories.touched ? categories.error : '' }
           </div>
         </div>
 
         <div className={`form-group ${content.touched && content.invalid ? 'has-danger' : ''}`}>
-          <label>Content</label>
-          <textarea rows="10" className="form-control" {...content} />
+          <label htmlFor="content">Content</label>
+          <textarea id="content" rows="10" className="form-control" {...content} />
           <div className="text-help">
-            { content.touched ? content.error : "" }
+            { content.touched ? content.error : '' }
           </div>
         </div>
 
@@ -80,5 +80,5 @@ function validate(values) {
 export default reduxForm({
   form: 'PostsNewForm',
   fields: ['title', 'categories', 'content'],
-  validate
+  validate,
 }, null, { createPost })(PostsNew);
